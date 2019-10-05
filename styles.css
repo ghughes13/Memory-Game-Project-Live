@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+* {
+    font-family: Montserrat, sans-serif; 
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 120px;
+    color: white;
+    margin: 25px;
+}
+
+h3 {
+    font-size: 45px;
+    color: white;
+}
+
+p {
+    color: white;
+}
+
+/**************************/
+/**********Header**********/
+/**************************/
+
+.header-container {
+    display: flex;
+    width: 100%;
+    background: #002D5D;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/**************************/
+/*******Start Screen*******/
+/**************************/
+
+.btn {
+
+}
+
+.start-screen {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+    align-items: center;
+}
+
+/**************************/
+/******Game Container******/
+/**************************/
+.game-container {
+    display: none;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.game-container > div {
+    height: auto;
+    width: 16%;
+    text-align: center;
+    margin-bottom:25px;
+    position: relative;
+    perspective: 1000px;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* .game-container > div:hover {
+    transform: rotateY(180deg);
+} */
+
+.front {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 204px;
+    width: 200px;
+    margin: auto;
+    background: grey;
+    backface-visibility: hidden;
+}
+
+.back {
+    backface-visibility: hidden;
+}
+
+img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.game-container > div.active,
+.active .back,
+.game-container > div.flip-perminent,
+.flip-perminent .back {
+    transform: rotateY(180deg);
+}
+
+/**************************/
+/******Game Over Screen****/
+/**************************/
+
+.game-over {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: pink;
+}
+
+.restart-btn {
+    display: block;
+}
