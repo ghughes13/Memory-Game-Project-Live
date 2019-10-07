@@ -2,16 +2,15 @@ const startBtn = document.querySelector('.start-btn');
 const gameContainer = document.querySelector('.game-container');
 const startScreen = document.querySelector('.start-screen');
 const timer = document.querySelector('.timer p');
+
 let score = 0;
-let cardOne = '';
-let cardTwo = '';
+let level = 9;
+let dogSrc = '';
 
 let gameCards = [];
 let dogImgSrcs = [];
 
 
-let level = 9;
-let dogSrc = '';
 
 startBtn.addEventListener('click', () => {
     startScreen.style.display = 'none';
@@ -95,41 +94,31 @@ function endGame() {
     gameContainer.style.display = 'none';
 }
 
-const addClickLitenerToCards = () => {
+function addClickLitenerToCards() {  
     const indvGameCards = document.querySelectorAll('.game-card');
-    indvGameCards.forEach((card) => {
-        card.addEventListener('click', () => {
+    indvGameCards.forEach(function(card) {
+        card.addEventListener('click', function() {
             card.classList.add('active');
-            if(cardOne == '') {
-                cardOne = card.getAttribute('data-key');
-            } else if(cardOne != '') {
-                if(cardOne == card.getAttribute('data-key')) {
+            let activeNumber = document.querySelectorAll('.active');
+            if(activeNumber.length == 2) {
+                console.log(activeNumber[0])
+                if(activeNumber[0].getAttribute('data-key') == activeNumber[1].getAttribute('data-key')) {
                     score++;
-                    console.log(cardOne);
-                    document.querySelectorAll('.active').forEach((el) => {
+                    activeNumber.forEach(function(el) {
                         el.classList.add('flip-perminent');
                     });
                     document.querySelector('.points p').innerHTML = score;
-                    carOne = '';
                 }
 
-                document.querySelectorAll('.active').forEach((el) => {
+                document.querySelectorAll('.active').forEach(function(el) {
                     window.setTimeout(function(){
                         el.classList.remove('active');
                     }, 1000); 
                 });
             } 
-
         })
     });   
 }
 
-//Prevent user from clicking on same card twice
-
-//check if 2 cards clicked are equal
-    //if not flip cards back over
-    //If they are; perminently flip them and add 1 to the score
-
-//If score == 9 end the game
-
 //Make game restart on click
+//Make Timer Stop
