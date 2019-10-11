@@ -1,4 +1,5 @@
 const startBtn = document.querySelector('.start-btn');
+const restartBtn = document.querySelector('.restart-btn');
 const gameContainer = document.querySelector('.game-container');
 const startScreen = document.querySelector('.start-screen');
 const timer = document.querySelector('.timer p');
@@ -10,13 +11,16 @@ let dogSrc = '';
 let gameCards = [];
 let dogImgSrcs = [];
 
-
-
-startBtn.addEventListener('click', () => {
+const startGame = () => {
+    document.querySelectorAll('.flip-perminent').forEach((el) => {
+        el.classList.remove('.flip-perminent')
+    });
+    timer.innerHTML = 5;
+    score = 0;
     startScreen.style.display = 'none';
     gameContainer.style.display = 'flex';
     runTimer()
-})
+}
 
 $.ajax({
     url : 'https://dog.ceo/api/breeds/image/random/' + level,
@@ -54,14 +58,11 @@ const setUpGameCards = () => {
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
   
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
   
-      // And swap it with the current element.
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
@@ -76,10 +77,12 @@ function runTimer() {
         timer.innerHTML = newTimerNumber - 1;
         
         if(timer.innerHTML == 0) {
+            clearInterval(runTimer);
             endGame();
         }
         
         if(score == 9) {
+            clearInterval(runTimer);
             endGame();
         }
     }, 1000);
@@ -120,5 +123,8 @@ function addClickLitenerToCards() {
     });   
 }
 
+
+startBtn.addEventListener('click', startGame)
+restartBtn.addEventListener('click',startGame)
 //Make game restart on click
 //Make Timer Stop
