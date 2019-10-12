@@ -126,16 +126,17 @@ p {
 }
 
 .game-container > div  {
-    transform: rotateY(0deg);
     height: auto;
     width: 200px;
     text-align: center;
     margin: 0 15px 25px;
     position: relative;
-    perspective: 1000px;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-    
+}
+
+.front, 
+.back {
+    box-shadow: 10px 10px 25px 0px rgba(0,0,0,0.25);
+    transition-duration: .25s;
 }
 
 .front {
@@ -144,15 +145,30 @@ p {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 204px;
+    height: 200px;
     width: 200px;
-    margin: auto;
+    margin: 0;
     background: grey;
     backface-visibility: hidden;
+    z-index: 1;
+    opacity: .25;
 }
 
 .back {
     backface-visibility: hidden;
+    max-height: 200px;
+    transform: rotateY(180deg);
+    z-index:0
+}
+
+.front:hover {
+    transform: rotateY(20deg);
+    transition-duration: .25s;
+}
+
+.front:hover ~ .back {
+    transform: rotateY(160deg);
+    transition-duration: .25s;
 }
 
 img {
@@ -161,11 +177,15 @@ img {
     object-fit: cover;
 }
 
-.game-container > div.active,
-.active .back,
-.game-container > div.flip-perminent,
-.flip-perminent .back {
+.game-container > div.flip-perminent .front,
+.game-container > div.active .front {
     transform: rotateY(180deg);
+    pointer-events: none;
+}
+
+.active .back,
+.flip-perminent .back {
+    transform: rotateY(0deg);
     pointer-events: none;
 }
 
