@@ -2,7 +2,9 @@ const startBtn = document.querySelector('.start-btn');
 const restartBtn = document.querySelector('.restart-btn');
 const gameContainer = document.querySelector('.game-container');
 const startScreen = document.querySelector('.start-screen');
+const restartContainer = document.querySelector('.game-over');
 const timer = document.querySelector('.timer p');
+let gameTimer;
 
 let score = 0;
 let level = 9;
@@ -15,11 +17,12 @@ const startGame = () => {
     document.querySelectorAll('.flip-perminent').forEach((el) => {
         el.classList.remove('.flip-perminent')
     });
-    timer.innerHTML = 5;
+    timer.innerHTML = 50000;
     score = 0;
     startScreen.style.display = 'none';
+    restartContainer.style.display = 'none';
     gameContainer.style.display = 'flex';
-    runTimer()
+    gameTimer = setInterval(runTimer, 1000);
 }
 
 $.ajax({
@@ -72,24 +75,21 @@ function shuffle(array) {
 }
 
 function runTimer() {
-    setInterval(function() {
-        let newTimerNumber = timer.innerHTML;
-        timer.innerHTML = newTimerNumber - 1;
-        
-        if(timer.innerHTML == 0) {
-            clearInterval(runTimer);
-            endGame();
-        }
-        
-        if(score == 9) {
-            clearInterval(runTimer);
-            endGame();
-        }
-    }, 1000);
+    let newTimerNumber = timer.innerHTML;
+    timer.innerHTML = newTimerNumber - 1;
+    
+    if(timer.innerHTML == 0) {
+        clearInterval(gameTimer);
+        endGame();
+    }
+    
+    if(score == 9) {
+        clearInterval(gameTimer);
+        endGame();
+    }
 }
 
 function endGame() {
-    clearInterval(runTimer);
     document.querySelector('.game-over').style.display = 'flex';
     document.querySelector('.game-over-text').innerHTML = "Game Over. You Scored " + score + " points. Play again?";
     console.log('stopped');
